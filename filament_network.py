@@ -117,8 +117,7 @@ class Fiber:
             self.springs.append(new_spring)
 
     def update(self):
-        ball1 = self.balls[0]
-        ball1.applyForce(np.array([1e-3, 0.0]))  # Example: External force
+          # Example: External force
         for spring in self.springs:
             spring.update()
 
@@ -156,11 +155,14 @@ class FiberNetwork2:
         created_crosslinks = 0
         while created_crosslinks < max_crosslinks:
             # Randomly select two different fibers
-            i, j = random.sample(range(self.number_of_filaments), 2)
-
+            i = np.random.randint(0, self.number_of_filaments-1)
+            j = np.random.randint(0, self.number_of_filaments-1)
+            while i == j:
+                i = np.random.randint(0, self.number_of_filaments-1)
+                j = np.random.randint(0, self.number_of_filaments-1)
             # Randomly select a ball from each fiber
-            ball_from_i = random.choice(self.fibers[i].balls)
-            ball_from_j = random.choice(self.fibers[j].balls)
+            ball_from_i = np.random.choice(self.fibers[i].balls)
+            ball_from_j = np.random.choice(self.fibers[j].balls)
 
             # Create a crosslink if not already exists
             if not any(cl.ball1 == ball_from_i and cl.ball2 == ball_from_j for cl in self.crosslinks):

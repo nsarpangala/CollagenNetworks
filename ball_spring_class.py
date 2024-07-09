@@ -15,6 +15,9 @@ class Ball:
         self.acceleration += force / self.coeff_visco
 
     def update(self):
+        #random force normally distributed
+        random_force = np.random.normal(loc=0, scale=1e-3, size=2)
+        self.applyForce(random_force)
         self.velocity = self.acceleration
         self.position += self.velocity
         self.acceleration *= 0
